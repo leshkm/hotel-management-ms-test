@@ -16,19 +16,18 @@ stages:
 
 jobs:
   include:
-    - compile_and_test
-      name: Compile and test
+    - stage: compile_and_test
+      name: "Compile and test"
+      script: ./gradlew build test
+    - stage: build_and_deploy
+      name: "Build and deploy"
       script:
-        - ./gradlew build test
-    - build_and_deploy
-      name: Build and deploy
-        script:
-          - ./gradlew bootJar
-          - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-          - docker build -t reservations-service ./reservation
-          - docker images
-          - docker tag reservations-service $DOCKER_USERNAME/reservations-service
-          - docker push $DOCKER_USERNAME/reservations-service
+        - ./gradlew bootJar
+        - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+        - docker build -t reservations-service ./reservation
+        - docker images
+        - docker tag reservations-service $DOCKER_USERNAME/reservations-service
+        - docker push $DOCKER_USERNAME/reservations-service
 
 before_install:
   - chmod +x gradlew
