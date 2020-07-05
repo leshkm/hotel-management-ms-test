@@ -39,4 +39,7 @@ test {
 
 jar {
     enabled=true
+    manifest {
+        attributes 'Main-Class': 'ua.mohylin.hotel.reservations.ReservationsApplication'
+    }
 }

@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  reservation:
+    ports:
+      - "8080:8080"
+    build:
+      context: reservation
+    networks:
+      - network1
+
+networks:
+  network1:
+    driver: bridge
