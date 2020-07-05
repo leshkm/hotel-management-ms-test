@@ -7,6 +7,10 @@ plugins {
 
 sourceCompatibility = '1.8'
 
+springBoot {
+    buildInfo()
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -17,6 +21,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springdoc:springdoc-openapi-ui:1.4.3"
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'

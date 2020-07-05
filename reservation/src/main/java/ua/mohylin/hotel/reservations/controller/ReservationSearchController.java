@@ -11,6 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import ua.mohylin.hotel.reservations.api.IsoDate;
 import ua.mohylin.hotel.reservations.api.ReservationService;
 import ua.mohylin.hotel.reservations.dto.ReservationDto;
@@ -34,6 +40,14 @@ public class ReservationSearchController {
     @Autowired
     private ReservationMapper mapper;
 
+
+    @Operation(summary = "Get a list of reservations")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ReservationDto.class))) }),
+            @ApiResponse(responseCode = "400", description = "Invalid query parameters specified",
+                    content = @Content)})
     @GetMapping
     public List<ReservationDto> searchReservations(
             @RequestParam(required = false) @IsoDate LocalDate startDateFrom,

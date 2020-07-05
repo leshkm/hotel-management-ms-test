@@ -8,3 +8,5 @@ At the moment the only service is available:
 - reservation
 
 Other services are TBD.
+
+See Swagger API at http://localhost:8080/api/reservation/swagger-ui/index.htmls
