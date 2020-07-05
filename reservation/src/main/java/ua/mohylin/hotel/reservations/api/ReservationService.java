@@ -1,5 +1,8 @@
 package ua.mohylin.hotel.reservations.api;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import ua.mohylin.hotel.reservations.exception.ReservationException;
 import ua.mohylin.hotel.reservations.exception.ReservationNotFoundException;
 import ua.mohylin.hotel.reservations.model.Reservation;
@@ -44,5 +47,21 @@ public interface ReservationService {
      * @throws ReservationNotFoundException in case when supplied ID does not exist in the system
      */
     void delete(int id) throws ReservationNotFoundException;
+
+    /**
+     * Returns all reservations
+     *
+     * @return all reservations that exist in the system
+     */
+    List<Reservation> getAll();
+
+    /**
+     * Returns reservations that start within the specified date range
+     *
+     * @param startDateFrom first date in the range
+     * @param startDateTo last date in the range
+     * @return reservations that start within the specified date range
+     */
+    List<Reservation> getAllInRange(LocalDate startDateFrom, LocalDate startDateTo);
 
 }

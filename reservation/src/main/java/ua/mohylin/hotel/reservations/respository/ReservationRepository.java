@@ -13,13 +13,14 @@ import ua.mohylin.hotel.reservations.model.Reservation;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 
-    @Query("SELECT r FROM Reservation r WHERE r.roomNumber = :roomNumber and " +
-            "(r.startDate < :date2 and r.endDate > :date1)")
-    List<Reservation> findByRoomNumberInDateRange(
-            @Param("roomNumber") Integer roomNumber,
-            @Param("date1") LocalDate date1,
-            @Param("date2") LocalDate date2);
+    @Query("SELECT r FROM Reservation r " +
+            " WHERE r.startDate between :startDateFrom and :startDateTo " +
+            " ORDER BY r.startDate ASC")
+    List<Reservation> findByDateRange(
+            @Param("startDateFrom") LocalDate startDateFrom,
+            @Param("startDateTo") LocalDate startDateTo);
 
+    List<Reservation> findAllByStartDateBetween(LocalDate startDateFrom, LocalDate startDateTo);
 
     @Query("SELECT count(r) = 0 FROM Reservation r WHERE r.roomNumber = :roomNumber and " +
             "(r.startDate < :date2 and r.endDate > :date1)")

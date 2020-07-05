@@ -1,5 +1,7 @@
 package ua.mohylin.hotel.reservations.service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -57,6 +59,16 @@ public class ReservationServiceImpl implements ReservationService {
     public void delete(int id) throws ReservationNotFoundException {
         validateReservationExists(id);
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<Reservation> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public List<Reservation> getAllInRange(LocalDate startDateFrom, LocalDate startDateTo) {
+        return repository.findAllByStartDateBetween(startDateFrom, startDateTo);
     }
 
     private void validateReservationExists(int reservationId) throws ReservationNotFoundException {
