@@ -1,0 +1,4 @@
+rootProject.name = 'parent'
+include ':reservations'
+
+project(':reservations').projectDir = "$rootDir/reservation" as File

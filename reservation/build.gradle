@@ -1,49 +1,16 @@
 plugins {
     id 'org.springframework.boot' version '2.3.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id 'org.asciidoctor.convert' version '1.5.8'
     id 'java'
-    id "com.diffplug.gradle.spotless" version "4.4.0"
+    id "com.diffplug.gradle.spotless"
 }
 
-group = 'ua.mohylin.hotel'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
-}
-
-apply plugin: 'com.diffplug.gradle.spotless'
-
-spotless {
-    java {
-        target 'src/**/*.java'
-
-        enforceCheck true
-
-        trimTrailingWhitespace()
-        removeUnusedImports()
-        endWithNewline()
-        importOrder 'java', 'javax', 'org', 'com', '', 'static '
-    }
-    format 'misc', {
-        target '**/*.gradle', '**/*.md', '**/.gitignore'
-
-        trimTrailingWhitespace()
-        indentWithSpaces()
-        endWithNewline()
-    }
-}
-
-repositories {
-    mavenCentral()
-}
-
-ext {
-    set('snippetsDir', file("build/generated-snippets"))
 }
 
 dependencies {
@@ -62,11 +29,9 @@ dependencies {
 }
 
 test {
-    outputs.dir snippetsDir
     useJUnitPlatform()
 }
 
-asciidoctor {
-    inputs.dir snippetsDir
-    dependsOn test
+jar {
+    enabled=true
 }

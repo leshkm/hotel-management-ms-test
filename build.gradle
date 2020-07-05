@@ -1,0 +1,40 @@
+plugins {
+    id "com.diffplug.gradle.spotless" version "4.4.0"
+}
+
+wrapper {
+    gradleVersion = '6.5'
+}
+
+allprojects  {
+    group = 'ua.mohylin.hotel'
+}
+
+subprojects {
+
+    apply plugin: 'com.diffplug.gradle.spotless'
+
+    spotless {
+        java {
+            target 'src/**/*.java'
+
+            enforceCheck true
+
+            trimTrailingWhitespace()
+            removeUnusedImports()
+            endWithNewline()
+            importOrder 'java', 'javax', 'org', 'com', '', 'static '
+        }
+        format 'misc', {
+            target '**/*.gradle', '**/*.md', '**/.gitignore'
+
+            trimTrailingWhitespace()
+            indentWithSpaces()
+            endWithNewline()
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}
